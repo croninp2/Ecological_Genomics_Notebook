@@ -111,9 +111,33 @@ fastqc WA_PP1_M2_GTCCGC_L003_R1_001.fastq.gz -o ~
 ------
 <div id='id-section3'/>
 ### Page 3:
+
+Created clean reads directory in home
+Transferred trim_example.sh to myscripts dir
+Opened file with Vim 
+* vim filename
+vim commands:
+*i = edit
+*esc = exit edit
+*: = enter commands
+*w = write file
+*q = quit vim
+*:w newname = give file a new name
+created trim_M2.sh
+chmod u+x trim_M2.sh to make file executable
+executed trim_M2.sh
+fastqc on results
+Mapping reads to reference transcriptome:
+bwa mem <ref.fa> <read1.fq> <read2.fq> > <aln-pe.sam>
+Used screen command
+ctrl + a + d to detach
+
 ------
 <div id='id-section4'/>
 ### Page 4:
+Viewed .sam file with head and tailcommands
+created tail file tail.sam
+viewed tail file in vim
 ------
 <div id='id-section5'/>
 ### Page 5:
