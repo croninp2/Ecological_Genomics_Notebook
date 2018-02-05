@@ -138,6 +138,9 @@ ctrl + a + d to detach
 Viewed .sam file with head and tailcommands
 created tail file tail.sam
 viewed tail file in vim
+Reviewed sam flags
+looked at python script to analyze sam file
+Installed DESeq2 package
 ------
 <div id='id-section5'/>
 ### Page 5:
