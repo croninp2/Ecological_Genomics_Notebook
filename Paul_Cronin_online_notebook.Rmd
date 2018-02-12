@@ -140,13 +140,126 @@ created tail file tail.sam
 viewed tail file in vim
 Reviewed sam flags
 looked at python script to analyze sam file
-Installed DESeq2 package
+Installed DESeq2 package in R
 ------
 <div id='id-section5'/>
 ### Page 5:
+Reviewed bash scripting making test_bash.sh (hello world!)
+Moved aligned DESeq data to personal computer for work in R
+Created thisthing.R 
 ------
 <div id='id-section6'/>
 ### Page 6:
+Continued thisthing.R with unusual results that differed from melissa
+Visualized differences in gene expression across variables measures using PCA and ggplot
+``` {r}
+# set working directory
+setwd("C:/Users/Paul/Desktop/Ecological_Genomics/DESeq_Data_and_scripts")
+
+library("DESeq2")
+library("ggplot2")
+
+countsTable <- read.delim("allcountsdataRN_noIT.txt", header=TRUE, stringsAsFactors = TRUE, row.names=1)
+countData <- as.matrix(countsTable)
+head(countData)
+
+
+conds <-  read.delim("cols_data_noIT.txt", header=TRUE, stringsAsFactors = TRUE, row.names=1)
+head(conds)
+colData <- as.data.frame(conds)
+
+##################################
+
+dds <- DESeqDataSetFromMatrix(countData = countData, colData, design = ~ devstage + sex + population) 
+
+dim(dds)
+#[1] 17483    48
+
+dds <- dds[rowSums(counts(dds)) > 1,] #sum across columns but keep rows
+
+dim(dds)
+#[1] 16851    48  Only lost ~600 genes
+
+dds <- DESeq(dds, modelMatrixType = "standard")
+
+resultsNames(dds)
+
+res <- results(dds)
+str(res)
+
+res <- res[order(res$padj),]
+head(res)
+
+# log2 fold change (MLE): population WA vs NC 
+# Wald test p-value: population WA vs NC 
+# DataFrame with 6 rows and 6 columns
+# baseMean log2FoldChange     lfcSE      stat       pvalue         padj
+# <numeric>      <numeric> <numeric> <numeric>    <numeric>    <numeric>
+#   OTAU017482-RA 126.291608     -5.4166340 0.6732174 -8.045892 8.561964e-16 1.268369e-11
+# OTAU012716-RA 188.877675      4.2644034 0.5427535  7.856980 3.935069e-15 2.914706e-11
+# OTAU008667-RA 231.871115     -0.8736955 0.1267134 -6.895051 5.384538e-12 1.994164e-08
+# OTAU012562-RA 251.774364     -0.8774079 0.1270957 -6.903520 5.072966e-12 1.994164e-08
+# OTAU013988-RA   4.416955      4.4229857 0.6836393  6.469765 9.815559e-11 2.908154e-07
+# OTAU011160-RA  10.241516     -2.5149390 0.4125305 -6.096371 1.085033e-09 2.678947e-06
+
+summary(res)
+
+# out of 16851 with nonzero total read count
+# adjusted p-value < 0.1
+# LFC > 0 (up)     : 333, 2% 
+# LFC < 0 (down)   : 282, 1.7% 
+# outliers [1]     : 85, 0.5% 
+# low counts [2]   : 1952, 12% 
+# (mean count < 1)
+# [1] see 'cooksCutoff' argument of ?results
+# [2] see 'independentFiltering' argument of ?results
+
+res_pop <- results(dds, name="population_WA_vs_NC", alpha=0.05)
+
+res_pop <- res_pop[order(res_pop$padj),]
+summary(res_pop)
+
+# out of 16851 with nonzero total read count
+# adjusted p-value < 0.05
+# LFC > 0 (up)     : 204, 1.2% 
+# LFC < 0 (down)   : 177, 1.1% 
+# outliers [1]     : 85, 0.5% 
+# low counts [2]   : 1952, 12% 
+# (mean count < 1)
+# [1] see 'cooksCutoff' argument of ?results
+# [2] see 'independentFiltering' argument of ?results
+
+################################### Data Visualization
+plotMA(res_pop, main="DESeq2", ylim=c(-2,2))
+abline(h=c(-1,1), col="blue", lwd = 2)
+
+# sex effect?
+
+res_sex <- results(dds, name="sex_M_vs_F", alpha=0.05)
+plotMA(res_sex, main="DESeq2", ylim=c(-15,15))
+abline(h=c(-1,1), col="blue", lwd = 2)
+
+##################### PCA to get a global view of gene expression
+rld <- rlog(dds, blind=FALSE) #takes a while
+data <- plotPCA(rld, intgroup=c("population","devstage","sex"), returnData=TRUE)
+percentVar <- round(100 * attr(data, "percentVar"))
+
+data$devstage <- factor(data$devstage, levels=c("L3L","PP1","PD1","AD4"), labels =c("L3L","PP1","PD1","AD4"))
+
+ggplot(data, aes(PC1, PC2, color=sex, shape=devstage)) +
+  geom_point(size=4, alpha=0.85) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) +
+  theme_minimal()
+dev.off()
+
+ggplot(data, aes(PC1, PC2, color=population, shape=devstage)) +
+  geom_point(size=4, alpha=0.85) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) +
+  theme_minimal()
+
+```
 ------
 <div id='id-section7'/>
 ### Page 7:
