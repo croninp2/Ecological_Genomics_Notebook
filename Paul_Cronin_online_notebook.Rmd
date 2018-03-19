@@ -144,12 +144,14 @@ Installed DESeq2 package in R
 ------
 <div id='id-section5'/>
 ### Page 5:
+
 Reviewed bash scripting making test_bash.sh (hello world!)
 Moved aligned DESeq data to personal computer for work in R
 Created thisthing.R 
 ------
 <div id='id-section6'/>
 ### Page 6:
+
 Continued thisthing.R with unusual results that differed from melissa
 Visualized differences in gene expression across variables measures using PCA and ggplot
 ``` {r}
@@ -263,15 +265,36 @@ ggplot(data, aes(PC1, PC2, color=population, shape=devstage)) +
 ------
 <div id='id-section7'/>
 ### Page 7:
+
+WGCNA Exercises
 ------
 <div id='id-section8'/>
 ### Page 8:
 ------
 <div id='id-section9'/>
 ### Page 9:
-------
+
+Beginning of Genomics Section
+
+Methodology:
+
+Return to sam fies (cleaned reads aligned to reference genome)
+
+Call SNPs and Genotypes using read2snps and samtools as pipelines
+
+Quality Control using vcftools
+
+Calculate diversity statistics (Tajima's D, Structure, Selection, etc.)
+
+Created CallSNPs.sh
+
+Used samtools tview [file] [path to reference genome] to view reads on genome
+
+
+------ 
 <div id='id-section10'/>
 ### Page 10:
+Diversity and site frequency spectrum
 ------
 <div id='id-section11'/>
 ### Page 11:
@@ -281,6 +304,22 @@ ggplot(data, aes(PC1, PC2, color=population, shape=devstage)) +
 ------
 <div id='id-section13'/>
 ### Page 13:
+Day 5 of genomics
+Continuing on admixture analysis
+Copied data and bash scripts to myspcripts folder
+Found k values for populations
+Created R script ADMIXTURE.R to visulaize K with k= 2,3,4
+Homework: CHoose a different thinning setting for the snps (hgher or lower)
+          create a new vcf file
+          rerun admixture with steps followed today
+          assess "robustness" of our inference of K from today (how much does our view depend on how we account for linkage disequilibrium)
+          
+          For each population (IT, NC, WA)
+            Calculate pi(nucleotide diversity) IT>NC,WA?
+              vcftools --vcf filename.vcf --keep popfile --site-pi
+              
+          Propose a hypithesis for the demographic history
+            
 ------
 <div id='id-section14'/>
 ### Page 14:
