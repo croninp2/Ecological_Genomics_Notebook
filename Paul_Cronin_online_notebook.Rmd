@@ -318,14 +318,31 @@ Homework: CHoose a different thinning setting for the snps (hgher or lower)
             Calculate pi(nucleotide diversity) IT>NC,WA?
               vcftools --vcf filename.vcf --keep popfile --site-pi
               
-          Propose a hypithesis for the demographic history
+          Propose a hypothesis for the demographic history
             
 ------
 <div id='id-section14'/>
 ### Page 14:
+Population Genomics 6: Testing selection using Fst outlier analysis
+Using bayscan to find local adaptation
+bayscan parameters: pr_odds 10 = one in every ten snps under local selection
+can have huge effect on results. We will very this parameter within the class and compare results. I have 500. Also verying thin parameter between 10 20 and 30.
+Wrote a bayescan.sh ship that did this in mycripts
+Screen to put in screen
+ctrl+a+d to detach
+screen -r to reattach
+
 ------
 <div id='id-section15'/>
 ### Page 15:
+Population Genomics 7: Analyzing Fst outlier (Bayescan) results
+Investigating our Fst file
+prob high = selection low = neutral
+log10.Po - similar
+qval like p value
+WOrked in R to look at Fst outliers
+Exported candidate genes to the server
+Looked at annotation file OTAU.Models.gff3
 ------
 <div id='id-section16'/>
 ### Page 16:
