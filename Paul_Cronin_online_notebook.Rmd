@@ -1,3 +1,6 @@
+# Paul: This is a good start on your lab notebook, but ideally you would have better annotation for each entry. When you read this work a year or 2 from now, or if you were to share it with a collaborator, the notebook should include enough rationale and description of what you're doing and why so that it is interpretable. A bit more organization and annotation would increase its value to you for the future, and help with documentation purposes when it comes to writing up your work for publication, etc. --Steve
+
+
 ## Author: Paul Cronin     
 ## Ecological Genomics:   
 
